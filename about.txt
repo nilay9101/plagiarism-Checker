@@ -1,0 +1,197 @@
+assignment_checker/
+│
+├── app.py                          # Main Flask application logic
+├── plagiarism_checker.py          # Plagiarism comparison logic
+├── init_db.py                     # (Optional) Script to create & initialize the database
+├── plagiarism.db                  # SQLite database file (auto-generated)
+│
+├── uploads/                       # Folder to store uploaded files temporarily
+│   └── (uploaded .txt/.pdf/.docx files)
+│
+├── assignments/                   # Initial known submissions (baseline texts)
+│   └── assignment1.txt
+│   └── assignment2.txt
+│   └── ... (used to populate database at start)
+│
+├── templates/                     # HTML templates (rendered by Flask)
+│   └── index.html                 # Main frontend interface
+│
+├── static/                        # Static assets like CSS, images, icons
+│   ├── styles.css                 # Optional custom styling
+│   └── icons8-favicon-48.png     # Favicon for browser tab
+│
+└── README.md                      # (Optional) Project description and setup instructions
+
+
+
+🧠 Project Title:
+Online Assignment Plagiarism Checker Using AI
+
+🎯 Objective:
+To develop an AI-based plagiarism detection system that allows students or evaluators to check assignment originality by comparing submitted text or files against an evolving internal database of previously submitted content.
+
+🛠️ Tech Stack:
+Component	            Technology Used
+Programming Language	    Python
+Web Framework	            Flask
+Frontend	                HTML5, CSS3, Bootstrap
+Database	                SQLite
+File Handling	            PyPDF2, python-docx
+Plagiarism Logic	        Custom Python logic with NLP techniques
+Deployment	                Localhost (can extend to cloud)
+
+📌 Core Features:
+1. Dual Input Method:
+Users can paste text directly or upload .txt, .pdf, or .docx files.
+
+2. File Extraction and Content Parsing:
+Uploaded files are read using appropriate parsers:
+
+txt: Plain read
+
+pdf: PyPDF2
+
+docx: python-docx
+
+3. Plagiarism Detection:
+Checks input against:
+
+Initial benchmark assignments
+
+Previously stored original submissions in the database
+
+4. Database Integration:
+Stores:
+
+Filename (or “Pasted Text”)
+
+Raw content
+
+Plagiarism result
+
+Timestamp
+
+5. Smart Growth:
+Only original submissions are saved to the database.
+
+Over time, the database grows automatically, improving plagiarism detection accuracy.
+
+6. Result Reporting:
+Clearly shows:
+
+Match percentage
+
+Source file (if matched)
+
+Or a “No significant match found” message if original
+
+✅ Current Protections:
+Blank/invalid submissions are ignored and not stored.
+
+Files are securely uploaded and parsed.
+
+Uploads are restricted to safe extensions.
+
+🚀 Future Scope (Optional Enhancements):
+Sentence-level similarity detection using NLP (like spaCy, BERT)
+
+User login system for students and teachers
+
+Admin dashboard to view/download past checks
+
+PDF export of results
+
+
+You can generate this yourself after installing packages with:
+
+
+pip freeze > requirements.txt
+But I included key ones you need.
+
+README.md
+# Assignment Plagiarism Checker
+
+A Flask web application to detect plagiarism in student assignments by comparing input text or uploaded files (txt, pdf, doc/docx) against a stored dataset and past submissions.
+
+## Features
+
+- Paste assignment text or upload `.txt`, `.pdf`, `.doc`, `.docx` files for plagiarism checking.
+- Uses simple text matching to find similarities.
+- Stores submissions and results in SQLite database.
+- View submission history with timestamps and filenames.
+- Clean and responsive Bootstrap-based UI.
+
+## Setup & Installation
+
+1. Clone the repo:
+   ```bash
+   git clone <your-repo-url>
+   cd plagiarism-checker
+(Optional but recommended) Create a virtual environment:
+
+bash
+Copy
+Edit
+python -m venv venv
+source venv/bin/activate     # Linux/macOS
+venv\Scripts\activate        # Windows
+Install dependencies:
+
+bash
+Copy
+Edit
+pip install -r requirements.txt
+Run the app:
+
+bash
+Copy
+Edit
+python app.py
+Open your browser and visit:
+
+cpp
+Copy
+Edit
+http://127.0.0.1:5000/
+Usage
+Paste your assignment text or upload a file.
+
+Click Check for Plagiarism.
+
+View results and optionally check submission history.
+
+Folder Structure
+plagiarism-checker/
+├── app.py
+├── database.py
+├── plagiarism_checker.py
+├── uploads/
+├── static/
+│   ├── styles.css
+│   └── icons8-favicon-48.png
+└── templates/
+    ├── index.html
+    └── history.html
+Dependencies
+Flask
+
+python-docx
+
+PyMuPDF
+
+License
+MIT License (or your preferred license)
+
+# to check the database contents
+sqlite3 plagiarism.db
+  SELECT filename,id, LENGTH(content) as size, timestamp FROM submissions;
+
+# running the app
+python app.py or flask run
+
+# removing the last saved data in the database(from id)
+
+DELETE FROM submissions WHERE id = (SELECT MAX(id) FROM submissions);
+
+
+
